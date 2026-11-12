@@ -1,30 +1,30 @@
 In this chapter we will see some basic concepts of Hamiltonian mechanics: we will define Hamiltonian systems and Poisson brackets, review Hamilton's equations of motion and state some fundamental results concerning integrals of motion in Hamilton's formalism. \\
-In the last section we will present some important mathematical tools of modern theory of integrable systems, such as Lax Representation and then Bäcklund transformations, that will play a key role in Chapter \textsection 3.
+In the last section we will present some important mathematical tools of modern theory of integrable systems, such as Lax representation and Bäcklund transformations, which will play a key role in Chapter~\ref{ch:solitons}.
 
 \section{Hamiltonian systems}
-Let us recall some basic elements of Hamiltonian Systems \footnote{For a more complete discussion and insights, please refer to K. Vogtmann, A. Weinstein, and V. Arnol’d, \textit{Mathematical Methods of Classical Mechanics}. Graduate Texts in Mathematics, Springer New York, 1997.}. We start from the definition:
+Let us recall some basic elements of Hamiltonian systems.\footnote{For a more complete discussion, see V.~I. Arnol'd, \textit{Mathematical Methods of Classical Mechanics}, 2nd ed., Graduate Texts in Mathematics 60, Springer, New York, 1989.} We start from the definition:
 
 \begin{defi}
-A dynamical system of $\;2N$, first order, ordinary differential equations
+A dynamical system of $2N$ first-order ordinary differential equations
 
 \begin{equation}
     \dot X = J \nabla \mathcal{H}
 \end{equation}
 
-is said an $N$-degree-of-freedom Hamiltonian System if $\mathcal{H}$ the Hamiltonian, is a smooth scalar function defined on the phase space, $\mathcal{H}: \mathcal{T}^\ast \mathcal{M} \to \mathbb{R}$, where $\mathcal{M}$ is a $N$-dimensional smooth manifold (configuration space) and $\mathcal{T}^\ast \mathcal{M}$ its cotangent bundle (\cite{arnold2007mathematical}), and the $N \times N$ antisymmetric matrix
+is called a Hamiltonian system with $N$ degrees of freedom if $\mathcal{H}$, the Hamiltonian, is a smooth scalar function defined on the phase space, $\mathcal{H}: \mathcal{T}^\ast \mathcal{M} \to \mathbb{R}$, where $\mathcal{M}$ is an $N$-dimensional smooth manifold (configuration space) and $\mathcal{T}^\ast \mathcal{M}$ its cotangent bundle (\cite{arnold2007mathematical}), and the $2N \times 2N$ antisymmetric matrix
 
-$$J = 
+\[J = 
 \begin{pmatrix}
 0 & \mathbb{1}_N \\
 -\mathbb{1}_N  & 0
-\end{pmatrix}$$
+\end{pmatrix}\]
 
 is called the canonical symplectic matrix, where $\mathbb{1}_N$ is the $N \times N$ identity matrix.
 \end{defi}
 
-In its "natural" form, for a system of $N$ particles, one writes
+In its ``natural'' form, for a system of $N$ particles, one writes
 
-$$\mathcal{H}(q_1,q_2,...,q_N,p_1,p_2,...,p_N) = \sum_{i=1}^N \frac{p_i^2}{2m_i} + V(q_1,q_2,...,q_N)\;.$$
+\[\mathcal{H}(q_1,q_2,...,q_N,p_1,p_2,...,p_N) = \sum_{i=1}^N \frac{p_i^2}{2m_i} + V(q_1,q_2,...,q_N)\;.\]
 
 where $q_i$ is the position of the $i^{th}$ particle whose mass is $m_i$ , and $p_i$ is its canonical momentum $p_i = m_i \dot q_i$ . The equations of motion are
 
@@ -33,7 +33,7 @@ where $q_i$ is the position of the $i^{th}$ particle whose mass is $m_i$ , and 
 \dot p_i = - \frac{\partial \mathcal{H}}{\partial q_i}\;,
 \end{equation}
 
-which are equivalent to Newton's equation of motion. 
+which are equivalent to Newton's equations of motion. 
 
 \begin{defi}
 We define the Poisson brackets for any couple of functions $F(q,p)$ and $G(q,p)$ on the phase space as follows:
@@ -54,13 +54,13 @@ Let $A$, $B$, $C: \mathcal{T}^\ast \mathcal{M} \to \mathbb{R}$, $k$, $h \in \mat
 \end{enumerate}
 \end{prop}
 
-If $\delta_{ij}$ denote the Kronecker delta, the coordinates $(q_1, ..., q_n, p_1, ..., p_n)$ satisfy canonical relations:
+If $\delta_{ij}$ denotes the Kronecker delta, the coordinates $(q_1, \dots, q_N, p_1, \dots, p_N)$ satisfy the canonical relations
 
 \begin{equation}
-    \{q_i, q_j\} = \{p_i, p_j\} = 0, \;\;\;\;\;\; \{p_i, q_j\} = \delta_{ij}\;.
+    \{q_i, q_j\} = \{p_i, p_j\} = 0, \;\;\;\;\;\; \{q_i, p_j\} = \delta_{ij}\;.
 \end{equation}
 
-It yields the following
+This yields the following
 
 \begin{thm}
 A function $F$ on phase space, $F:\mathcal{T}^\ast\mathcal{M} \to \mathbb{R}$ is a first integral for the Hamiltonian system $\mathcal{H}$ if and only if 
@@ -72,7 +72,7 @@ A function $F$ on phase space, $F:\mathcal{T}^\ast\mathcal{M} \to \mathbb{R}$ is
 
 \section{Canonical and Bäcklund transformations}
 \subsection{Canonical transformations}
-A natural question is which are the transformations that leave invariant in form the Hamilton equations. Such transformations are called \textit{canonical}.
+A natural question is which transformations leave the form of Hamilton's equations invariant. Such transformations are called \textit{canonical}.
 
 \begin{defi}
 The coordinate transformation $T$
@@ -98,7 +98,7 @@ are equivalent to the new equations
 \dot{\tilde q} = \frac{\partial \tilde{\mathcal{H}}}{\partial \tilde p}\;\;\;\;, \;\;\;\;\dot{\tilde p} = - \frac{\partial \tilde{\mathcal{H}}}{\partial \tilde q}\;,
 \end{equation}
 
-where $\tilde{\mathcal{H}} = \mathcal{H} \circ T$, i.e. $\tilde{\mathcal{H}}(\tilde q, \tilde p) = \mathcal{H}(T(q,p))$.
+where $\tilde{\mathcal{H}} = \mathcal{H} \circ T$, i.e. $\tilde{\mathcal{H}}(\tilde q, \tilde p) = \mathcal{H}(T(\tilde q,\tilde p))$.
 \end{defi}
 
 \begin{defi}
@@ -108,7 +108,7 @@ A coordinate transformation $T$
     T: (q,p) = T(\tilde q, \tilde p)
 \end{equation}
 
-preserves the Poisson brackets. If two functions on phase space $F$ and $G$ are defined, denoting by $\tilde F = F \circ t$, $\tilde G = G \circ t$ the transformed functions, it results 
+is said to preserve the Poisson brackets if, for any two functions $F$ and $G$ on phase space, the transformed functions $\tilde F = F \circ T$, $\tilde G = G \circ T$ satisfy
 
 \begin{equation}
     \{\tilde F, \tilde G\} = \{F, G\} \circ T\;.
@@ -123,14 +123,14 @@ A \textit{Bäcklund transformation} (BT) between a pair of differential equation
     P(u) = 0\;\;\;\;,\;\;\;\;Q(v) = 0\;,
 \end{equation}
 
-maps solutions of one to solutions of the other. They were introduced in 1880 by A. V. Bäcklund \cite{backlund1880} in a differential geometry context, as a map between 3-dimensional surfaces. \\
-In the large part of the literature, the term \textit{Bäcklund transformations} refers to \textit{auto-Bäcklund transformations} \cite{philip2019soliton}, in the sense that the two equations coincide: $P \equiv Q$.\\
+maps solutions of one to solutions of the other. They were introduced in 1880 by A. V. Bäcklund \cite{backlund1880} in a differential geometry context, as a map between surfaces in 3-dimensional space. \\
+In most of the literature, the term \textit{Bäcklund transformations} refers to \textit{auto-Bäcklund transformations} \cite{philip2019soliton}, in the sense that the two equations coincide: $P \equiv Q$.\\
 An \textit{auto-Bäcklund transformation} is a transform that leaves a partial differential equation invariant. It can also provide a method whereby a known solution to a partial differential equation can be transformed into a different solution to the same PDE. This solution can then be used to obtain a new solution. \\
-By naturally declining the definition for Hamiltonian systems, an Hamiltonian auto-Bäcklund transformation is a map between canonical coordinates, $(x(t), \dot x(t)) \to (z(t), \dot z(t))$ that leaves Hamilton's equations invariant. 
+Extending the definition to Hamiltonian systems, a Hamiltonian auto-Bäcklund transformation is a map between canonical coordinates, $(x(t), \dot x(t)) \to (z(t), \dot z(t))$ that leaves Hamilton's equations invariant. 
 As already mentioned, Hamiltonian auto-Bäcklund transformations belong to a subset of canonical transformations, with the special property of preserving the Hamiltonian function \cite{kuznetsov1998}.
 
 \begin{example}
-    The well known Cauchy-Riemann conditions
+    The well-known Cauchy-Riemann conditions
     
     \begin{equation}
         \left \{ \begin{array}{cc}
@@ -145,49 +145,48 @@ As already mentioned, Hamiltonian auto-Bäcklund transformations belong to a sub
 
 \section{Integrable systems}
 \subsection{Introduction to integrability}
-A standard way to investigate the behavior of a physical system is to construct a mathematical model of the system, solve the model, use it to make predictions and compare theoretical results with experiments. However, often the differential equations provided by these models cannot be solved analytically and solutions can only be approximated numerically. Relatively few systems, however, can be solved exactly with explicit analytic expressions. These systems are called "integrable". \\
-The field of integrable systems is born together with Classical Mechanics \cite{babelon2003}, with a quest for exact solutions to Newton's equations of motion \cite{newton1687}. After two centuries from Newton's solution of the Kepler problem, only a few other cases were found:
+A standard way to investigate the behavior of a physical system is to construct a mathematical model of the system, solve the model, use it to make predictions and compare theoretical results with experiments. However, often the differential equations provided by these models cannot be solved analytically and solutions can only be approximated numerically. Relatively few systems, however, can be solved exactly with explicit analytic expressions. These systems are called ``integrable''. \\
+The field of integrable systems was born together with Classical Mechanics \cite{babelon2003}, with a quest for exact solutions to Newton's equations of motion \cite{newton1687}. Two centuries after Newton's solution of the Kepler problem, only a few other cases were found:
 
 \begin{itemize}
-    \item geodesics on ellipsoid (Jacobi, 1837, \cite{jacobi1936});
+    \item geodesics on the ellipsoid (Jacobi, 1838, \cite{jacobi1936});
     \item the harmonic oscillator on the sphere (Neumann, 1859, \cite{neumann1859});
     \item Lagrange, Euler and Kovalevskaya \cite{kowalevski1889} tops.
 \end{itemize}
 
-We need to clarify that the concept of integrability is not the same as resolubility. There are integrable systems that cannot be expressed analytically, just as there are systems exactly solvable that are not integrable. Solvability ultimately depends on capacity and computational power. Integrability refers rather to the property of a system to exhibit regular behaviors (quasi-periodic) for every possible condition initial condition, as opposed to chaotic and irregular ones. For this reason, an inclusive definition of integrable system is elusive, as repeatedly pointed out in \cite{zakharov2012integrability}.
+We need to clarify that the concept of integrability is not the same as solvability. There are integrable systems that cannot be solved analytically, just as there are systems exactly solvable that are not integrable. Solvability ultimately depends on capacity and computational power. Integrability refers rather to the property of a system to exhibit regular behaviors (quasi-periodic) for every possible initial condition, as opposed to chaotic and irregular ones. For this reason, an inclusive definition of integrable system is elusive, as repeatedly pointed out in \cite{zakharov2012integrability}.
 
 \subsection{Action-Angle variables}
-Consider an autonomous Hamiltonian system with $N$ degrees of freedom, of Hamiltonian $\mathcal{H}(q, p)$; with evidence if $\mathcal{H}$ does not depend on one or more coordinates, e.g. $q_{M+1}, . . . , q_N$, $0 \leq M < N$, then the corresponding conjugate moments $p_{M+1}, . . . , p_N$ are constants of the motion of the system, and in practice the Hamiltonian system with $N$ degrees of freedom is reduced to a system with only $M$ degrees of freedom. If then $\mathcal{H}$ is independent of all coordinates $q_1, . . . , q_N$, that is, we have $\mathcal{H}(q, p) = h(p)$, then the integration of the equations of motion is completely trivial: in fact, posited $\omega_i(p) = \frac{\partial h}{\partial p_i}$ , $i = 1, . . . , N$, the equations of motion become $\dot p_i = 0, \dot q_i = \omega_i(p)$, and thus the general integral is written
+Consider an autonomous Hamiltonian system with $N$ degrees of freedom, of Hamiltonian $\mathcal{H}(q, p)$. Clearly, if $\mathcal{H}$ does not depend on one or more coordinates, e.g. $q_{M+1}, . . . , q_N$, $0 \leq M < N$, then the corresponding conjugate momenta $p_{M+1}, . . . , p_N$ are constants of the motion of the system, and in practice the Hamiltonian system with $N$ degrees of freedom is reduced to a system with only $M$ degrees of freedom. If then $\mathcal{H}$ is independent of all coordinates $q_1, . . . , q_N$, that is, we have $\mathcal{H}(q, p) = h(p)$, then the integration of the equations of motion is completely trivial: in fact, setting $\omega_i(p) = \frac{\partial h}{\partial p_i}$ , $i = 1, . . . , N$, the equations of motion become $\dot p_i = 0, \dot q_i = \omega_i(p)$, and thus the general integral is written
 
 \begin{equation}
-p_i(t) = p_i^0 \;\;\;\;,\;\;\;\; q_i(t) = q_i^0 + \omega_i(p^0)t ,\; , \end{equation}
+p_i(t) = p_i^0 \;\;\;\;,\;\;\;\; q_i(t) = q_i^0 + \omega_i(p^0)t\;, \end{equation}
 
-where $q_i^0$ , $p_i^0$ , $i = 1, . . . , N$, denote the initial data.
-The motion in the new variables then takes place on a torus $\mathbb{T}^N$ and is linear:
+where $q_i^0$, $p_i^0$, $i = 1, \dots, N$, denote the initial data.
+Liouville integrability asks for a canonical change of variables $(q,p) \to (I, \phi)$, with actions $I \in B \subset \mathbb{R}^N$ and angles $\phi \in \mathbb{T}^N$, that brings the Hamiltonian to this form, $\mathcal{H} = h(I)$. The motion in the new variables then takes place on a torus $\mathbb{T}^N$ and is linear:
 
 \begin{equation}
     I(t) = I_0\;\;\;\; , \;\;\;\;\phi(t) = \phi_0 + \omega(I_0)t
 \end{equation}
 
-with $\omega = \frac{\partial h}{\partial I}$, and in the new variables the phase space appears naturally decomposed into the product $B \times \mathbb{T}^N$. For their geometric interpretation, these variables $(I, \phi)$ are called action-angle variables. \\
-We can now 
+with $\omega = \frac{\partial h}{\partial I}$, and in the new variables the phase space appears naturally decomposed into the product $B \times \mathbb{T}^N$. For their geometric interpretation, these variables $(I, \phi)$ are called action-angle variables. We can now state the definition.
 
 \begin{defi}
 The Hamiltonian $\mathcal{H} : D \to \mathbb{R}$ is said to be integrable according to Liouville in the domain $D' \subset D$
-if there exists a canonical transformation $(q, p) = T(I, \phi)$, defined for $I \in B \subset \mathbb{R}^n$ and $\phi \in \mathbb{T}^N$, such that
+if there exists a canonical transformation $(q, p) = T(I, \phi)$, defined for $I \in B \subset \mathbb{R}^N$ and $\phi \in \mathbb{T}^N$, such that
 
 \begin{enumerate}
 \item $D' = T(B \times \mathbb{T}^N)$, 
 \item the new Hamiltonian $\tilde{\mathcal{H}} = \mathcal{H} \circ T$ is a function of actions only:
 
-$$\tilde{\mathcal{H}}(I, \phi) = h(I)\;\;\;\;,\;\;\;\; h : B \to \mathbb{R} \;.$$
+\[\tilde{\mathcal{H}}(I, \phi) = h(I)\;\;\;\;,\;\;\;\; h : B \to \mathbb{R} \;.\]
 \end{enumerate}
 \end{defi}
 
-In the second half of the nineteenth century, J. Liouville  \cite{Liouville1855} provided a general criterion characterizing the cases where the equations of motion are “solvable by quadratures”. This result was reported by V. I. Arnol'd in \cite{arnold1997} with a new proof based on symplectic geometry. This contribution was so important that now the theorem is known as the Liouville-Arnol'd theorem:
+In the second half of the nineteenth century, J. Liouville \cite{liouville1855} provided a general criterion characterizing the cases where the equations of motion are ``solvable by quadratures''. This result was reported by V. I. Arnol'd in \cite{arnold1997} with a new proof based on symplectic geometry. This contribution was so important that now the theorem is known as the Liouville-Arnol'd theorem:
 
 \begin{thm}[Liouville-Arnol'd]
-If a Hamiltonian system with $n$ degrees of freedom has $N$ integrals of motion $\mathcal{H}_1, \mathcal{H}_2, ..., \mathcal{H}_N$, ($\mathcal{H}_i:\mathcal{T}^\ast \mathcal{M} \to \mathbb{R}\;\forall i = 1,...,N$ ):
+If a Hamiltonian system with $N$ degrees of freedom has $N$ integrals of motion $\mathcal{H}_1, \mathcal{H}_2, ..., \mathcal{H}_N$, ($\mathcal{H}_i:\mathcal{T}^\ast \mathcal{M} \to \mathbb{R}\;\forall i = 1,...,N$ ):
 \begin{enumerate}
 \item functionally independent and analytical in their variables,
 \item in involution, i.e. $\{\mathcal{H}_i, \mathcal{H}_j\} = 0 \;\forall i \neq j$,
@@ -196,7 +195,7 @@ then the system can be integrated by quadratures.
 \end{thm}
 
 \subsection{Lax representation of an integrable system}
-A new concept emerged from modern studies on integrable systems is the notion of Lax pairs \cite{lax1968}, introduced by the Hungarian-born American mathematician Peter Lax in 1968.
+A new concept that emerged from modern studies on integrable systems is the notion of Lax pairs \cite{lax1968}, introduced by the Hungarian-born American mathematician Peter Lax in 1968.
 
 \begin{defi}
 A Lax pair $(L,M)$ consists of two square matrices, functions on the phase space of the system, such that the Hamiltonian evolution equations may be written as
@@ -210,32 +209,32 @@ where $[L,M]$ denotes the commutator on the set of matrices.
 
 Suppose that $\mathcal{H}$ is integrable, and that the integrals of motion $\mathcal{H}_1, ..., \mathcal{H}_N$ are known. Then
 
-$$ \hat L = \diag{ \{\mathcal{H}_i : i=1,...,N \}} $$
+\[ \hat L = \diag{ \{\mathcal{H}_i : i=1,...,N \}} \]
 
-is the Lax representation of $\mathcal{H}$. Note that $\mathcal{H}_1, ..., \mathcal{H}_N$ are the eigenvalues of $\hat L$. \\
+is a Lax representation of $\mathcal{H}$. Note that $\mathcal{H}_1, ..., \mathcal{H}_N$ are the eigenvalues of $\hat L$. \\
 Because similarity transformations preserve eigenvalues, if
 
-$$L = U \hat LU^{-1}$$
+\[L = U \hat LU^{-1}\]
 
-where $U(t)$ is some invertible matrix, then the eigenvalues $\lambda_i$ of $L$ coincide with the ones of $\hat L$: $\lambda_i = \mathcal{H}_i$ ($i=1, ..., n$). Consider now the eigenvalue equation
+where $U(t)$ is some invertible matrix, then the eigenvalues $\lambda_i$ of $L$ coincide with the ones of $\hat L$: $\lambda_i = \mathcal{H}_i$ ($i=1, \dots, N$). Consider now the eigenvalue equation
 
-$$Lu_i = \lambda_i u_i\;.$$
+\[Lu_i = \lambda_i u_i\;.\]
 
 Taking the time derivative we get:
 
-$$\dot L u_i + L \dot u_i = \dot \lambda_i u_i + \lambda_i \dot u_i = \lambda_i \dot u_i\;.$$
+\[\dot L u_i + L \dot u_i = \dot \lambda_i u_i + \lambda_i \dot u_i = \lambda_i \dot u_i\;.\]
 
 Supposing $\dot u_i = - M u_i$, where $M \in \mathbb{C}^{\;N\times N}$ we have
 
-$$\dot L u_i - LMu_i = -\lambda_i M u_i = - M \lambda_i u_i = - MLu_i\;,$$
+\[\dot L u_i - LMu_i = -\lambda_i M u_i = - M \lambda_i u_i = - MLu_i\;,\]
 
 thus
 
-$$\dot L u_i - LMu_i = -MLu_i \iff (\dot L - [L,M])u_i = 0\;\;.$$
+\[\dot L u_i - LMu_i = -MLu_i \iff (\dot L - [L,M])u_i = 0\;\;.\]
 
 which implies
 
-$$\dot L = [L,M]\;.$$
+\[\dot L = [L,M]\;.\]
 
 Since the elements of $L$ are functions on phase space, the Lax evolution equations must be equivalent to Hamilton's equations of motion for $\mathcal{H}$.
 
@@ -243,16 +242,16 @@ Since the elements of $L$ are functions on phase space, the Lax evolution equati
 Given a Lax pair $(L,M)$ for a dynamical system, then the functions
 
 \begin{equation}
-tr(L^k)\;\;\;\;,\;\;\;\;k = 1, 2, ..., 
+\operatorname{tr}(L^k)\;\;\;\;,\;\;\;\;k = 1, 2, ..., 
 \end{equation}
 
-are all the integrals of motion of the dynamical system.
+are integrals of motion of the dynamical system.
 \end{thm}
 
 \begin{proof}
     For $k=1$ we have
     
-    $$\frac{d}{dt} tr(L) = tr(\dot L) = tr(LM - ML) = 0$$
+    \[\frac{d}{dt} \operatorname{tr}(L) = \operatorname{tr}(\dot L) = \operatorname{tr}(LM - ML) = 0\]
     
     due to the cyclic property of the trace operator. More generally
     
@@ -266,13 +265,13 @@ are all the integrals of motion of the dynamical system.
 \end{equation*}
     
     Then
-    $$\frac{d}{dt} tr(L^k) = tr(\frac{d}{dt} L^k) = tr(L^k M - ML^k) = 0\;.$$
+    \[\frac{d}{dt} \operatorname{tr}(L^k) = \operatorname{tr}(\frac{d}{dt} L^k) = \operatorname{tr}(L^k M - ML^k) = 0\;.\]
 \end{proof}
 
 \begin{example}
 A Lax pair for the harmonic oscillator has the form:
 
-$$L = 
+\[L = 
 \begin{pmatrix}   
 p & \omega q\\   
 \omega q & -p  
@@ -281,7 +280,7 @@ M =
 \begin{pmatrix}   
 0 & \frac{\omega}{2}\\   
 -\frac{\omega}{2} & 0  
-\end{pmatrix}\;.$$
+\end{pmatrix}\;.\]
 
 The characteristic equation
 
@@ -298,5 +297,5 @@ gives the eigenvalues
 that are integrals of motion of the system related to the energy. \\
 We check immediately that the Lax evolution equation, $\dot L = [L, M]$, is equivalent to the equations of motion
 
-$$\dot q = p, \;\;\;\;\;\;\;\;\dot p = -\omega^2 p\;\;\,.$$
+\[\dot q = p, \;\;\;\;\;\;\;\;\dot p = -\omega^2 q\;\;\,.\]
 \end{example}
