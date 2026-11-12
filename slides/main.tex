@@ -11,6 +11,19 @@
 \usepackage{times}
 \usepackage{hyperref}
 \usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\pgfplotscreateplotcyclelist{worldlines}{{blue!80!black},{red!80!black},{black},{teal},{orange!90!black},{violet},{brown},{green!50!black},{magenta!80!black},{gray}}
+% Worldlines q_1(t), ..., q_N(t) from the CSV files of the thesis (thesis/data)
+\newcommand{\worldlines}[4]{% #1 file, #2 N, #3 width, #4 height
+  \begin{tikzpicture}
+  \begin{axis}[width=#3, height=#4, xlabel={$t$}, ylabel={$q$},
+    enlarge x limits=false, tick label style={font=\tiny},
+    label style={font=\scriptsize}, cycle list name=worldlines,
+    every axis plot/.append style={line width=0.5pt, mark=none}]
+  \pgfplotsinvokeforeach{1,...,#2}{\addplot table[x=t, y=q##1, col sep=comma]{#1};}
+  \end{axis}
+  \end{tikzpicture}}
 \usepackage[english]{babel}
 \usepackage{tcolorbox} % Allows boxes
 \usepackage{graphicx} % Allows including images
@@ -152,14 +165,14 @@ to classical Calogero-Moser systems}
 
 
 \section{Background: integrable systems}
-\begin{frame}{Backgroud: integrable systems}
+\begin{frame}{Background: integrable systems}
 \subsection{Introduction to integrability}
-The field of integrable systems is born together with Classical Mechanics, with a quest for exact solutions to Newton's equations of motion. After two centuries from Newton's solution of the Kepler problem, only a few other cases were found:
+The field of integrable systems was born together with classical mechanics, with a quest for exact solutions to Newton's equations of motion. Two centuries after Newton's solution of the Kepler problem, only a few other cases were known:
 
-$$$$
+\vspace{\baselineskip}
 
 \begin{itemize}
-    \item geodesics on ellipsoid (Jacobi, 1837);
+    \item geodesics on the ellipsoid (Jacobi, 1838);
     \item the harmonic oscillator on the sphere (Neumann, 1859);
     \item Lagrange, Euler and Kovalevskaya tops.
 \end{itemize}
@@ -181,40 +194,40 @@ where $[L,M]$ denotes the commutator on the set of matrices.
 
 Suppose that $\mathcal{H}$ is integrable, and that the integrals of motion $\mathcal{H}_1, ..., \mathcal{H}_N$ are known. Then
 
-$$ \hat L = \diag{ \{\mathcal{H}_i : i=1,...,N \}} $$
+\[ \hat L = \diag{ \{\mathcal{H}_i : i=1,...,N \}} \]
 
-is the Lax representation of $\mathcal{H}$.
+is a Lax representation of $\mathcal{H}$.
 \end{frame}
 
 \begin{frame}{Lax representation of an integrable system II}
 Because similarity transformations preserve eigenvalues, if
 
-$$L = U \hat LU^{-1}$$
+\[L = U \hat LU^{-1}\]
 
-where $U(t)$ is some invertible matrix, then the eigenvalues $\lambda_i$ of $L$ coincide with the ones of $\hat L$: $\lambda_i = \mathcal{H}_i$ ($i=1, ..., n$). Consider now the eigenvalue equation
+where $U(t)$ is some invertible matrix, then the eigenvalues $\lambda_i$ of $L$ coincide with the ones of $\hat L$: $\lambda_i = \mathcal{H}_i$ ($i=1, \dots, N$). Consider now the eigenvalue equation
 
-$$Lu_i = \lambda_i u_i\;.$$
+\[Lu_i = \lambda_i u_i\;.\]
 
 Taking the time derivative we get:
 
-$$\dot L u_i + L \dot u_i = \dot \lambda_i u_i + \lambda_i \dot u_i = \lambda_i \dot u_i\;.$$
+\[\dot L u_i + L \dot u_i = \dot \lambda_i u_i + \lambda_i \dot u_i = \lambda_i \dot u_i\;.\]
 
 Supposing $\dot u_i = - M u_i$, where $M \in \mathbb{C}^{\;N\times N}$ we have
 
-$$\dot L u_i - LMu_i = -\lambda_i M u_i = - M \lambda_i u_i = - MLu_i\;,$$
+\[\dot L u_i - LMu_i = -\lambda_i M u_i = - M \lambda_i u_i = - MLu_i\;,\]
 
 thus
 
-$$\dot L u_i - LMu_i = -MLu_i \iff (\dot L - [L,M])u_i = 0\;\;.$$
+\[\dot L u_i - LMu_i = -MLu_i \iff (\dot L - [L,M])u_i = 0\;\;.\]
 
-$$\implies \dot L = [L,M]\;.$$
+\[\implies \dot L = [L,M]\;.\]
 \end{frame}
 
 \begin{frame}{Lax representation of an integrable system III}
 \begin{example}
 A Lax pair for the harmonic oscillator has the form:
 
-$$L = 
+\[L = 
 \begin{pmatrix}   
 p & \omega q\\   
 \omega q & -p  
@@ -223,7 +236,7 @@ M =
 \begin{pmatrix}   
 0 & \frac{\omega}{2}\\   
 -\frac{\omega}{2} & 0  
-\end{pmatrix}\;.$$
+\end{pmatrix}\;.\]
 
 The characteristic equation
 
@@ -240,40 +253,34 @@ gives the eigenvalues
 that are integrals of motion of the system related to the energy. \\
 We check immediately that $\dot L = [L, M]$ is equivalent to the equations of motion
 
-$$\dot q = p, \;\;\;\;\;\;\;\;\dot p = -\omega^2 p\;\;\,.$$
+\[\dot q = p, \;\;\;\;\;\;\;\;\dot p = -\omega^2 q\;\;\,.\]
 \end{example} 
 \end{frame}
 
 \section{Calogero-Moser systems}
 \begin{frame}[allowframebreaks]{Calogero-Moser systems}
 \begin{defi}
-Let $(q, p) = (q_1, ..., q_N, p_1, ..., p_N)$ a set of canonical coordinates. A dynamical system is said to be a $A_{N-1}$ Calogero-Moser \textnormal{(CM)} system with some external potential $W(x)$ if it is characterized by the Hamiltonian
+Let $(q, p) = (q_1, \dots, q_N, p_1, \dots, p_N)$ be a set of canonical coordinates. A dynamical system is said to be an $A_{N-1}$ Calogero-Moser \textnormal{(CM)} system with some external potential $W(x)$ if it is characterized by the Hamiltonian
 
 \begin{equation}
-\mathcal{H}_{CM} = \frac{1}{2} \sum_{i=1}^N (p_i^2 + W(q_i)) + g^2 \sum_{i,j = 1,\;i \neq j}^N V(q_i - q_j)\;,
+\mathcal{H}_{CM} = \sum_{i=1}^N \Big(\frac{1}{2} p_i^2 + W(q_i)\Big) + g^2 \sum_{1 \leq i < j \leq N} V(q_i - q_j)\;,
 \end{equation}
 
-(masses are supposed to be unitary) with $g^2$ coupling constant and the interparticle potential $V (x)$ in the classified set of meromorphic functions:
+(with unit masses), where $g^2$ is the coupling constant and the interparticle potential $V (x)$ belongs to the classified set of meromorphic functions
 
-$$V(x) = \left \{ \begin{array}{ccc}
+\[V(x) = \left \{ \begin{array}{ccc}
 {1}/{x^2} & \textnormal{(rational)} & \textnormal{(I)}\\
 {a^2}/{\sin^2{ax}} & \textnormal{(trigonometric)} & \textnormal{(II)}\\
 {a^2}/{\sinh^2{ax}} & \textnormal{(hyperbolic)} & \textnormal{(III)}\\
 \wp (x) & \textnormal{(elliptic)} & \textnormal{(IV)}
 \end{array}
-\right.$$
+\right.\]
 
-where $\wp (x)$ is the \textit{elliptic and double periodic Weierstrass function} with periods $2\omega_1$ and $2\omega_2$.
+where $\wp (x)$ is the \textit{elliptic, doubly periodic Weierstrass function} with periods $2\omega_1$ and $2\omega_2$.
 \end{defi}
 
 \begin{itemize}
-\item Such functional forms of the potential must satisfy conditions that depend on the form of the Lax pair proposed by F. Calogero:
-
-\begin{equation}
-    a V''(x) V(x) -  b[V'(x)]^2 + c[V(x)]^2 = 0\;,
-\end{equation}
-
-which is satisfied by the Weiestrass elliptic function $\wp(x)$. Then
+\item These forms of the potential are fixed by the form of the Lax pair proposed by F. Calogero. The general solution is given by the Weierstrass function $\wp(x)$, and the types I--III are its limiting cases:
 
 \begin{equation}
     \wp(x) = \left \{ \begin{array}{ccc}
@@ -284,10 +291,10 @@ which is satisfied by the Weiestrass elliptic function $\wp(x)$. Then
 \right.
 \end{equation}
 
-\item Solving the Hamilton's equations, we recover
+\item From Hamilton's equations we get
 
 \begin{equation}
-    \ddot q_i = - \frac{\partial W}{\partial q_i} - g^2 \sum_{i,j = 1,\;i \neq j}^N \frac{\partial}{\partial q_i} V(q_i - q_j)\;.
+    \ddot q_i = - W'(q_i) - g^2 \sum_{j = 1,\;j \neq i}^N V'(q_i - q_j)\;.
 \end{equation}
 \end{itemize}
 \end{frame}
@@ -295,7 +302,7 @@ which is satisfied by the Weiestrass elliptic function $\wp(x)$. Then
 \subsection{KKS construction of CM systems}
 \begin{frame}{KKS construction of CM systems}
 In the Kazhdan-Kostant-Sternberg (KKS) construction of CM systems, CM systems emerge from Hamiltonians on the larger configuration space $X^0_N = \{X\}$ of $N \times N$ Hermitian matrices $X$. \\
-If $U$ is invertible, then the Hamiltonians are invariant with respect to similarity transformations
+If $U$ is unitary, then the Hamiltonians are invariant with respect to similarity transformations
 
 \begin{equation}
     (X, Y) \mapsto (UXU^{-1}, UYU^{-1})\;.
@@ -318,38 +325,38 @@ such matrices correspond to generic Hermitian matrices $X, Y \in X_N^0$:
 \end{frame}
 
 \begin{frame}{KKS construction of the $\textnormal{I}^+$ system}
-The KKS construction of the rational CM system leads to the Hamiltonian
+The KKS construction of the rational CM system with external harmonic potential starts from the Hamiltonian
 
 \begin{equation}
-    \mathcal{H}_{rCM} = \frac{1}{2}tr(Y^2 + \omega^2 X^2), \;\;\;\;\;\;(X,Y) \in \mathcal{T}^\ast X^0_N
+    \mathcal{H}_{eCM} = \frac{1}{2}\operatorname{tr}(Y^2 + \omega^2 X^2), \;\;\;\;\;\;(X,Y) \in \mathcal{T}^\ast X^0_N\;.
 \end{equation}
 
 Applying the similarity transformation we get
 
 \begin{equation}
 \begin{split}
-    \mathcal{H}_{eCM} &= \frac{1}{2}tr(Y^2) + \frac{1}{2}\omega^2 tr(X^2) = \\  &= \frac{1}{2}tr(UU^{-1}Y^2) + \frac{1}{2}\omega^2 tr(UU^{-1} X^2) = \\ 
-    & = \frac{1}{2}tr(U^{-1} Y^2 U) + \frac{1}{2}\omega^2 tr(U^{-1} X^2 U)= \frac{1}{2}tr(L^2) + \frac{1}{2}\omega^2 tr(Q^2)\;.
+    \mathcal{H}_{eCM} &= \frac{1}{2}\operatorname{tr}(Y^2) + \frac{1}{2}\omega^2 \operatorname{tr}(X^2) = \\  &= \frac{1}{2}\operatorname{tr}(UU^{-1}Y^2) + \frac{1}{2}\omega^2 \operatorname{tr}(UU^{-1} X^2) = \\ 
+    & = \frac{1}{2}\operatorname{tr}(U^{-1} Y^2 U) + \frac{1}{2}\omega^2 \operatorname{tr}(U^{-1} X^2 U)= \frac{1}{2}\operatorname{tr}(L^2) + \frac{1}{2}\omega^2 \operatorname{tr}(Q^2)\;.
 \end{split}
 \end{equation}
 
-which leads to the 
+The projection then gives
     
 \begin{equation}
-    \mathcal{H}_{eCM} = \frac{1}{2}tr(L^2) + \frac{1}{2}\omega^2 tr(Q^2)= \frac{1}{2}\sum_{i=1}^N (p_i^2 + \omega^2 q_i^2) + g^2 \sum_{i,j = 1, \;i \neq j}^N \frac{1}{(q_i - q_j)^2}\;.
+    \mathcal{H}_{eCM} = \frac{1}{2}\operatorname{tr}(L^2) + \frac{1}{2}\omega^2 \operatorname{tr}(Q^2)= \frac{1}{2}\sum_{i=1}^N (p_i^2 + \omega^2 q_i^2) + g^2 \sum_{1 \leq i < j \leq N} \frac{1}{(q_i - q_j)^2}\;.
 \end{equation}
 \end{frame}
 
 \subsection{The Olshanetsky-Perelomov projection method}
 \begin{frame}{The Olshanetsky-Perelomov projection method}
-As mentioned above, the Hamiltonian quadrature reduction algorithm cannot be applied to these systems. However an alternative method of integration has been developed by M. A. Olshanetsky and A. M. Perelomov. Their projection method amounts to the integration of the auxiliary Hamiltonian systems, from which the solution to the considered ones can be recovered by projection.
+Integrating the equations of motion of these systems directly is hard. However, an alternative method of integration has been developed by M. A. Olshanetsky and A. M. Perelomov. Their projection method amounts to the integration of the auxiliary Hamiltonian systems, from which the solution to the considered ones can be recovered by projection.
 \end{frame}
 
 \begin{frame}[allowframebreaks]{OP projection for $\textnormal{I}^+$ system}
 From harmonic motion on $X^0_N$, described by the Hamiltonian
 
 \begin{equation}
-    \mathcal{H} = \frac{1}{2}tr(Y^2 + \omega^2 X^2), \;\;\;\;\;\;(X,Y) \in \mathcal{T}^\ast X^0_N\;.
+    \mathcal{H} = \frac{1}{2}\operatorname{tr}(Y^2 + \omega^2 X^2), \;\;\;\;\;\;(X,Y) \in \mathcal{T}^\ast X^0_N\;.
 \end{equation}
 
 we obtain the equation of motion $\ddot X + \omega^2 X= 0$, which integrates directly to 
@@ -360,7 +367,7 @@ we obtain the equation of motion $\ddot X + \omega^2 X= 0$, which integrates dir
 
 If $X(t) = U(t) Q(t) U^{-1}(t)$, 
 
-$$U(0) = \mathbb{1}_N \implies B = X(0) = Q(0)\;\;\;\;, \;\;\;\;A = \dot X(0) = L(0).$$ 
+\[U(0) = \mathbb{1}_N \implies B = X(0) = Q(0)\;\;\;\;, \;\;\;\;A = \dot X(0) = L(0).\] 
 
 Then,
 
@@ -377,19 +384,19 @@ And the time evolution of $Q(t)$ is given by
 
 \subsection{Bäcklund transformations of CM systems}
 \begin{frame}[allowframebreaks]{Bäcklund transformations of CM systems}
-We introduce Bäcklund Transformations (BTs) of CM systems. In a single form for I, II, III, $\textnormal{I}^+$:
+We introduce Bäcklund transformations (BTs) of CM systems, in a single form for I, II, III and $\textnormal{I}^+$.
 
 \begin{thm}
-Consider $N$ complex canonical coordinates $x_j = q_j, \dot x_j = p_j \in \mathbb{C}$ and $M$ canonical coordinates $z_n, \dot z_n \in \mathbb{C}$. Then, Bäcklund Transformations for CM systems of type $\textnormal{I,II,III}$ and $\textnormal{I}^+$ take the form
+Consider $N$ complex canonical coordinates $x_j = q_j, \dot x_j = p_j \in \mathbb{C}$ and $M$ canonical coordinates $z_n, \dot z_n \in \mathbb{C}$. Then, the Bäcklund transformations for CM systems of type $\textnormal{I,II,III}$ and $\textnormal{I}^+$ take the form
 
 \begin{subequations}
 \begin{align}[left=\empheqlbrace]
 \dot x_j &= - \sum_{k=1,\;k \neq j}^N \alpha(x_j - x_k) + \sum_{n = 1}^M \alpha(x_j - z_n) + \lambda + i\omega x_j\;,\\
-\dot z_n &= \sum_{m=1,\;m \neq n}^N \alpha(z_n - z_m) - \sum_{l = 1}^M \alpha(z_n - x_l) + \lambda + i\omega x_j\;,
+\dot z_n &= \sum_{m=1,\;m \neq n}^M \alpha(z_n - z_m) - \sum_{l = 1}^N \alpha(z_n - x_l) + \lambda + i\omega z_n\;,
 \end{align}
 \end{subequations}
 
-with $\alpha(x)$ the \textit{Special Lax function}, with the property $V(x) = - \alpha^2(x)$, $\lambda$ constant and $\omega = 0$ for all but class $\textnormal{I}^+$.
+with $\alpha(x)$ the \textit{special Lax function}, with the property $V(x) = - \alpha^2(x)$, $\lambda$ a constant and $\omega = 0$ for all but class $\textnormal{I}^+$.
 \end{thm}
 \end{frame}
 
@@ -399,7 +406,7 @@ with $\alpha(x)$ the \textit{Special Lax function}, with the property $V(x) = - 
 Consider the Benjamin-Ono equation
 
 \begin{equation}\label{benjaminono}
-    u_t + \hat H u_{xx} + uu_x = 0\;,
+    u_t + \hat H u_{xx} + 2uu_x = 0\;,
 \end{equation}
 
 where $\hat H$ is the Hilbert transform
@@ -413,7 +420,7 @@ with $\textnormal{p.v.}$ the Cauchy principal value. This model describes intern
 \begin{figure}
     \centering
     \includegraphics[width = 4cm]{images/internalwavesgibraltar.jpg}
-    \caption{Internal waves in the Eastern Strait of Gibraltar. \footnote{Source: \url{https://www.eumetsat.int/internal-waves-eastern-strait-gibraltar}.}}
+    \caption{Internal waves in the Eastern Strait of Gibraltar (source: EUMETSAT).}
 \end{figure}
 \end{frame}
 
@@ -432,52 +439,195 @@ whose poles satisfy the complex Calogero-Moser equations of motion
 \end{frame}
 
 \begin{frame}{Poles of nonlinear waves as interacting particles IV}
-It holds the following
+The following holds.
 
 \begin{thm}
-Let $\alpha(x)$ a special Lax function. The meromorphic functions 
+Let $\alpha(x)$ be a special Lax function. The meromorphic functions 
 
 \begin{equation}\label{solitonequation}
     u(x,t) = \sum_{j=1}^N \alpha (x - x_j) - \sum_{n=1}^M \alpha (x - z_n) - i\omega x\;,
 \end{equation}
 
-for arbitrary $N$ and $M$ form a class of solutions to the Benjamin-Ono equation \ref{benjaminono} if and only if their poles $\{x_j\}$ and $\{z_n\}$ satisfy the system of equations
+for arbitrary $N$ and $M$ form a class of solutions to equations of Benjamin-Ono type (the equation (\ref{benjaminono}) itself in the rational case with $\omega = 0$) if and only if their poles $\{x_j\}$ and $\{z_n\}$ satisfy the system of equations
 
 \begin{subequations}
 \begin{align}[left=\empheqlbrace]
 \dot x_j &= - \sum_{k=1,\;k \neq j}^N \alpha(x_j - x_k) + \sum_{n = 1}^M \alpha(x_j - z_n) + \lambda + i\omega x_j\;,\\
-\dot z_n &= \sum_{m=1,\;m \neq n}^N \alpha(z_n - z_m) - \sum_{l = 1}^M \alpha(z_n - x_l) + \lambda + i\omega x_j\;,
+\dot z_n &= \sum_{m=1,\;m \neq n}^M \alpha(z_n - z_m) - \sum_{l = 1}^N \alpha(z_n - x_l) + \lambda + i\omega z_n\;,
 \end{align}
 \end{subequations}
 
-where $\omega$ is a constants. 
+where $\lambda$ and $\omega$ are constants. 
 \end{thm}
 \end{frame}
 
 \begin{frame}{Poles of nonlinear waves as interacting particles V}
 
 \begin{itemize}
-\item We can operate a finite-dimensional reduction of such infinitely dimensional systems. Given a solution of the form $u(x,t)$ we can consider a discretization $u(x; \{z_n\})$ so that the time dependence of $u$ is reduced to $M$ complex parameters $z_n (t)$, with $n = 1, 2,..., M$ with known time dependence. 
+\item We can operate a finite-dimensional reduction of such infinite-dimensional systems. Given a solution of the form $u(x,t)$ we can consider a discretization $u(x; \{z_n\})$ so that the time dependence of $u$ is reduced to $M$ complex parameters $z_n (t)$, with $n = 1, 2,..., M$ with known time dependence. 
 
-$$$$
+\vspace{\baselineskip}
 
 \item We call $u(x, \{z_n(t)\})$ for $n = 1, ..., M$ an $M$-soliton solution.
 \end{itemize}
 \end{frame}
 
 
+
+\subsection{General method}
+\begin{frame}[allowframebreaks]{General method}
+Consider $N$ complex canonical coordinates $x_j = q_j, \dot x_j = p_j \in \mathbb{C}$ and $M$ canonical coordinates $z_n, \dot z_n \in \mathbb{C}$ and their respective Hamiltonians
+
+\begin{subequations}
+\begin{align}
+    \mathcal{H} &= \frac{1}{2}\sum_j ({\dot x_j}^2 + \omega^2 x_j^2) + \sum_{j < k} V(x_j - x_k), \\
+    \mathcal{H'} &= \frac{1}{2}\sum_n ({\dot z_n}^2 + \omega^2 z_n^2) + \sum_{n < m} V(z_n - z_m)\;.
+\end{align}
+\end{subequations}
+
+Writing the special Lax function as $i\alpha(x)$, with $\alpha$ real on the real axis, a subset of the solutions to each system can be connected by a BT of the form
+
+\begin{subequations}
+\begin{align}[left=\empheqlbrace]
+\dot x_j &= - i\sum_{k=1,\;k \neq j}^N \alpha(x_j - x_k) + i\sum_{n = 1}^M \alpha(x_j - z_n) + i\omega x_j \label{soliton1}\;,\\
+\dot z_n &= i\sum_{m=1,\;m \neq n}^M \alpha(z_n - z_m) - i\sum_{l = 1}^N \alpha(z_n - x_l) + i\omega z_n\label{soliton1b}\;.
+\end{align}
+\end{subequations}
+
+For $M < N$, the principal system is reduced via BTs into a system with fewer degrees of freedom. If $x_j, p_j = \dot x_j \in \mathbb{R} \;\forall j$ (real reduction), splitting (\ref{soliton1}) into its real and imaginary parts we get
+
+\begin{subequations}
+\begin{align}[left=\empheqlbrace]
+    \sum_{k=1,\;k \neq j}^N \alpha (x_j - x_k) &= \sum_{n=1}^M \operatorname{Re}{\alpha(x_j - z_n)} + \omega x_j \label{soliton2}\;, \\
+    \dot x_j &= - \sum_{n = 1}^M \operatorname{Im}{\alpha(x_j - z_n)} \label{soliton3}\;.
+\end{align}
+\end{subequations}
+
+For $M$ given initial conditions $\{z_n(0)\}$, one can find both $N$ real positions $\{x_j(0)\}$ solving numerically (\ref{soliton2}), and the corresponding real momenta $\{\dot x_j(0)\}$ using (\ref{soliton3}). Then, the evolutions of the soliton solutions are determined by the OP projection.
+\end{frame}
+
+\subsection{1-soliton solutions for the eCM system}
+\begin{frame}[allowframebreaks]{1-soliton solutions for the $\textnormal{I}^+$ system}
+Solving the system numerically for the $\textnormal{I}^+$ system, we get the worldlines of the real system.
+
+\begin{figure}[H]
+    \centering
+    \worldlines{../thesis/data/fig3_2.csv}{10}{8cm}{5cm}
+    \caption{Worldlines of the real $\textnormal{I}^+$ system for $N = 10$ particles, with $\omega = g = 1$ and initial value $z(0) = 1 + i$.}
+    \label{fig:my_label}
+\end{figure}
+
+The soliton wave propagates along the real axis in coordination with the complex orbit $z(t)$. The soliton wave appears to propagate with constant speed (the shifts appear to be regularly spaced in time). The soliton excitation corresponds to the upward or downward shifts in the worldlines.  
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \worldlines{../thesis/data/fig3_3a.csv}{10}{6cm}{4.2cm}
+  \caption{}
+  \label{fig:sub1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \worldlines{../thesis/data/fig3_3b.csv}{10}{6cm}{4.2cm}
+  \caption{}
+  \label{fig:sub2}
+\end{subfigure}
+\caption{Worldlines of the real $\textnormal{I}^+$ system for $N = 10$ particles, with $\omega = g = 1$ and initial values $z(0) = 1.2 + 0.3i$ for \ref{fig:sub1} and $z(0) = 2.8 + 2.4i$ for \ref{fig:sub2}.}
+\label{fig:test}
+\end{figure}
+
+In Figure~\ref{fig:test} we can observe that if $z(0)$ is closer to the real axis, it yields a tighter orbit and more pronounced wave, while $z(0)$ farther gives the opposite behaviour.
+\end{frame}
+
+\subsection{$M$-soliton solutions for the eCM system}
+\begin{frame}[allowframebreaks]{$M$-soliton solutions for the $\textnormal{I}^+$ system}
+
+We can apply the general method to the rational potential with external harmonic potential (eCM) for a generic $M < N$:
+
+\begin{subequations}
+\begin{align}[left=\empheqlbrace]
+\dot x_j &= -ig \sum_{k=1,\;k \neq j}^N \frac{1}{(x_j - x_k)} + ig \sum_{n = 1}^M \frac{1}{(x_j - z_n)} + i\omega x_j \label{soliton7}\;,\\
+\dot z_n &= ig \sum_{m=1,\;m\neq n}^M \frac{1}{z_n - z_m} - ig \sum_{l=1}^N \frac{1}{(z_n - x_l)} + i\omega z_n\;.
+\end{align}
+\end{subequations}
+
+Separating (\ref{soliton7}) into its real and imaginary parts, we get
+
+\begin{subequations}
+\begin{align}[left=\empheqlbrace]
+    \omega x_j &= g\sum_{k=1,\;k \neq j}^N \frac{1}{x_j - x_k} - g \sum_{n=1}^M\operatorname{Re}{\frac{1}{x_j - z_n}} \label{soliton8}\;, \\
+    \dot x_j &= - g \sum_{n=1}^M\operatorname{Im}{\frac{1}{x_j - z_n}} \label{soliton9}\;.
+\end{align}
+\end{subequations}
+
+Solving numerically (\ref{soliton8}) for $\{z_n(0)\}$, $n = 1, \dots, M$, we find the $N$ positions $\{x_j(0)\}$, and then $\{\dot x_j(0)\}$ using (\ref{soliton9}). \\
+The evolutions of the soliton solutions $\{x_j(t)\}$ and $\{z_n(t)\}$ are given by the eigenvalues of
+
+\begin{subequations}
+\begin{align}
+    X_{jk} (t) &= \delta_{jk} \Big (\dot x_j(0)\frac{\sin{\omega t}}{\omega} + x_j (0)\cos{\omega t} \Big ) \nonumber\\ &\quad + (1 - \delta_{jk}) ig \frac{\sin{\omega t}}{\omega(x_j(0) - x_k(0))}\;, \\
+    Z_{nm} (t) &= \delta_{nm} \Big (\dot z_n(0)\frac{\sin{\omega t}}{\omega} + z_n (0)\cos{\omega t} \Big ) \nonumber\\ &\quad + (1 - \delta_{nm}) ig \frac{\sin{\omega t}}{\omega(z_n(0) - z_m(0))}\;.
+\end{align}
+\end{subequations}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \worldlines{../thesis/data/fig3_4a.csv}{6}{6cm}{4.2cm}
+  \caption{}
+  \label{2soliton61}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \worldlines{../thesis/data/fig3_4b.csv}{6}{6cm}{4.2cm}
+  \caption{}
+  \label{2soliton62}
+\end{subfigure}
+\caption{Worldlines of the real $\textnormal{I}^+$ system for $N = 6$ particles, with $\omega = g = 1$ and initial values $z_1(0) = -1.1 + 0.5i, z_2(0) = 0.1 -2i$ for \ref{2soliton61} and $z_1(0) = -1.1 + 0.5i, z_2(0) = 0.1 - i$ for \ref{2soliton62}.}
+\end{figure}
+
+For $M > 1$, we can note the effects of interaction between multiple solitons. The trajectories are deformed more or less significantly depending on the degrees of freedom of the dual system and the initial conditions.  
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \worldlines{../thesis/data/fig3_5a.csv}{6}{6cm}{4.2cm}
+  \caption{}
+  \label{2soliton63}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \worldlines{../thesis/data/fig3_5b.csv}{6}{6cm}{4.2cm}
+  \caption{}
+  \label{2soliton64}
+\end{subfigure}
+\caption{Worldlines of the real $\textnormal{I}^+$ system for $N = 6$ particles, with $\omega = g = 1$ and initial values $z_1(0) = 0.1 + 0.5i, z_2(0) = 0.1 -0.9i$ for \ref{2soliton63} and $z_1(0) = 0.1 + 0.5i, z_2(0) = 0.1 - 0.1i$ for \ref{2soliton64}.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \worldlines{../thesis/data/fig3_6.csv}{10}{9cm}{5.2cm}
+    \caption{Worldlines of the real $\textnormal{I}^+$ system for $N = 10$ particles, with $\omega = g = 1$ and initial values $z_1(0) = 0.1 + 0.5i, z_2(0) = 0.1 - i$.}
+    \label{figsoliton10}
+\end{figure}
+\end{frame}
+
+\subsection{Electrostatic interpretation}
 \begin{frame}[allowframebreaks]{Electrostatic interpretation}
 \begin{obs}
-As known in literature, soliton solutions to the rational CM system correspond to extremal conditions of an electrostatic energy function $E$. In fact, considering the Coulomb potential $V(x_j - z_n) = \ln{|x_j - z_n|} = (1/2)\ln{(x_j - z_n)}\ln{(x_j - \bar z_n)}$, it yields
+As is known in the literature, soliton solutions to the rational CM system correspond to extremal conditions of an electrostatic energy function $E$. In fact, considering the Coulomb potential $V(x_j - z_n) = \ln{|x_j - z_n|} = \frac{1}{2}\big[\ln{(x_j - z_n)} + \ln{(x_j - \bar z_n)}\big]$, we get
 
 \begin{equation}
-    \frac{\partial V(x_j - z_n)}{\partial x_i} = \frac{1}{2} \Big ( \frac{1}{x_j - z_n} + \frac{1}{x_j - \bar z_n} \Big ) = \operatorname{Re}{\frac{1}{x_j - z_n}}\;.
+    \frac{\partial V(x_j - z_n)}{\partial x_j} = \frac{1}{2} \Big ( \frac{1}{x_j - z_n} + \frac{1}{x_j - \bar z_n} \Big ) = \operatorname{Re}{\frac{1}{x_j - z_n}}\;.
 \end{equation}
 
 Then, given $E$ the potential of the system
 
 \begin{equation}
-    E = \sum_{j=1}^N \frac{\omega x_j^2}{2} - g \sum_{j, k = 1, \; j \neq k}^N \ln{|x_j - x_k|} + \frac{g}{2} \sum_{J = 1}^N \sum_{n=1}^M \ln{|x_j - z_n|^2}\;,
+    E = \sum_{j=1}^N \frac{\omega x_j^2}{2} - g \sum_{1 \leq j < k \leq N} \ln{|x_j - x_k|} + \frac{g}{2} \sum_{j = 1}^N \sum_{n=1}^M \ln{|x_j - z_n|^2}\;,
 \end{equation}
 
 it follows
@@ -488,7 +638,7 @@ it follows
 \end{obs}
 
 \begin{obs}
-Hence, equation \ref{soliton8} can be derived from the extremal condition 
+Hence, equation (\ref{soliton8}) can be derived from the extremal condition 
 
 \begin{equation}
     \frac{\partial E}{\partial x_j} = 0\;.
@@ -496,149 +646,6 @@ Hence, equation \ref{soliton8} can be derived from the extremal condition
 
 In this view, the positive charges $\{z_n\}$ interact with the negative charges $\{x_j\}$ on the line, inducing the soliton wave. 
 \end{obs}
-\end{frame}
-
-\subsection{General method}
-\begin{frame}[allowframebreaks]{General method}
-Consider $N$ complex canonical coordinates $x_j = q_j, \dot x_j = p_j \in \mathbb{C}$ and $M$ canonical coordinates $z_n, \dot z_n \in \mathbb{C}$ and their respective Hamiltonians
-
-\begin{subequations}
-\begin{align}
-    \mathcal{H} &= \frac{1}{2}\sum_j ({\dot x_j}^2 + \omega^2 x_j) + \sum_{j,k,\; j \neq k} V(x_j - x_k), \\
-    \mathcal{H'} &= \frac{1}{2}\sum_n ({\dot z_n}^2 + \omega^2 z_n) + \sum_{n,m,\; n \neq m} V(z_n - z_m)\;,
-\end{align}
-\end{subequations}
-
-Then a subset of the solutions to each system can be connected by a BT of the form
-
-\begin{subequations}
-\begin{align}[left=\empheqlbrace]
-\dot x_j &= - i\sum_{k=1,\;k \neq j}^N \alpha(x_j - x_k) + i\sum_{n = 1}^M \alpha(x_j - z_n) + i\omega x_j \label{soliton1}\;,\\
-\dot z_n &= i\sum_{m=1,\;m \neq n}^N \alpha(z_n - z_m) - i\sum_{l = 1}^M \alpha(z_n - x_l) + i\omega z_n\label{soliton1b}\;,
-\end{align}
-\end{subequations}
-
-$$\tilde \alpha(x) = i \alpha(x)$$
-
-For $M < N$, the principal system is reduced via BTs into a system with less degrees of freedom. If $x_j, p_j = \dot x_j \in \mathbb{R} \;\forall j$ (real reduction), splitting \ref{soliton1} into its real and imaginary parts we get
-
-\begin{subequations}
-\begin{align}[left=\empheqlbrace]
-    \sum_{k=1,\;k \neq j}^N \alpha (x_j - x_k) &= \sum_{n=1}^M \operatorname{Re}{\alpha(x_j - z_n)} + \omega x_j \label{soliton2}\;, \\
-    \dot x_j &= - \sum_{n = 1}^M \operatorname{Im}{\alpha(x_j - z_n)} \label{soliton3}\;.
-\end{align}
-\end{subequations}
-
-For $M$ given initial conditions $\{z_n(0)\}$, one can find both $N$ real positions $\{x_j(0)\}$ solving numerically \ref{soliton2}, and corresponding real momenta $\{\dot x_j(0)\}$ using \ref{soliton3}. Then, the evolutions of the soliton solutions are determined by the OP projection.
-\end{frame}
-
-\subsection{1-Soliton solution for the eCM system}
-\begin{frame}[allowframebreaks]{1-Soliton solution for the $\textnormal{I}^+$ system}
-Solving the system numerically, declined for the $\textnormal{I}^+$ system, we get the worldlines for the real system.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width = 6cm]{images/1soliton-solutions.png}
-    \caption{Worldline for the real $\textnormal{I}^+$ system for $N = 10$ particles, with $\omega = g = 1$ with initial value $z(0) = 1 + i$.}
-    \label{fig:my_label}
-\end{figure}
-
-The soliton wave propagates along the real axis in coordination with the complex orbit $z(t)$. The soliton wave appears to propagate with constant speed (the shifts appear to be regularly spaced in time). The soliton excitation corresponds to the upward or downward shifts in the worldlines.  
-
-\begin{figure}[H]
-\centering
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=5cm]{images/1soliton_1.png}
-  \caption{}
-  \label{fig:sub1}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=5cm]{images/1soliton_2.png}
-  \caption{}
-  \label{fig:sub2}
-\end{subfigure}
-\caption{Worldlines for the real $\textnormal{I}^+$ system for $N = 10$ particles, with $\omega = g = 1$ with initial values $z(0) = 1.2 + 0.3i$ for \ref{fig:sub1} and $z(0) = 2.8 + 2.4i$ for \ref{fig:sub2}.}
-\label{fig:test}
-\end{figure}
-
-In figure \ref{fig:test} we can observe that a if $z(0)$is closer to the real system, it yields a tighter orbit and more pronounced wave, while $z(0)$ farther gives the opposite behaviour.
-\end{frame}
-
-\subsection{M-Soliton solution for the eCM system}
-\begin{frame}[allowframebreaks]{M-Soliton solution for the $\textnormal{I}^+$ system}
-
-We can apply the general method to the rational potential with harmonic external potential (eCM) for a generic $M < N$ :
-
-\begin{subequations}
-\begin{align}[left=\empheqlbrace]
-\dot x_j &= -ig \sum_{k=1,\;k \neq j}^N \frac{1}{(x_j - x_k)} + ig \sum_{n = 1}^M \frac{1}{(x_j - z_n)} + i\omega x_j \label{soliton7}\;,\\
-\dot z_n &= ig \sum_{m=1,\;m\neq n} \frac{1}{z_n - z_m} - ig \sum_{l=1}^M \frac{1}{(z_n - x_l)} + i\omega z_n\;.
-\end{align}
-\end{subequations}
-
-Separating \ref{soliton7} into its real and imaginary parts, we get
-
-\begin{subequations}
-\begin{align}[left=\empheqlbrace]
-    \omega x_j &= g\sum_{k=1,\;k \neq j}^N \frac{1}{x_j - x_k} - g \sum_{n=1}^M\operatorname{Re}{\frac{1}{x_j - z_n}} \label{soliton8}\;, \\
-    \dot x_j &= - g \sum_{n=1}^M\operatorname{Im}{\frac{1}{x_j - z_n}} \label{soliton9}\;.
-\end{align}
-\end{subequations}
-
-Solving numerically \ref{soliton8} for $\{z_n(0)\}, n = 1, ..., M$, we can find out $N$ $\{x_j(0)\}$, and then $\{\dot x_j(0)\}$ using \ref{soliton9}. \\
-The evolutions of the soliton solutions $\{x_j(t)\}$ and $\{z_n(t)\}$ are given by the eigenvalues of
-
-\begin{subequations}
-\begin{align}
-    X_{jk} (t) &= \delta_{jk} \Big (\dot x_j(0)\frac{\sin{\omega t}}{\omega} + x_j (0)\cos{\omega t} \Big ) + (1 - \delta_{jk}) ig \frac{\sin{\omega t}}{\omega(x_j(0) - x_k(0))}\;, \\
-    Z_{nm} (t) &= \delta_{nm} \Big (\dot z_n(0)\frac{\sin{\omega t}}{\omega} + z_n (0)\cos{\omega t} \Big ) + (1 - \delta_{nm}) ig \frac{\sin{\omega t}}{\omega(z_n(0) - z_m(0))}\;.
-\end{align}
-\end{subequations}
-
-\begin{figure}[H]
-\centering
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=6cm]{images/2soliton6_1.png}
-  \caption{}
-  \label{2soliton61}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=6cm]{images/2soliton6_2.png}
-  \caption{}
-  \label{2soliton62}
-\end{subfigure}
-\caption{Worldlines for the real $\textnormal{I}^+$ system for $N = 6$ particles, with $\omega = g = 1$ with initial values $z_1(0) = -1.1 + 0.5i, z_2(0) = -1.1 -2i$ for \ref{2soliton61} and $z_1(0) = -1.1 + 0.5i, z_2(0) = 0.1 - i$ for \ref{2soliton62}.}
-\end{figure}
-
-For $M > 1$, we can note the effects of interaction between multiple solitons. The trajectories are deformed more or less significantly depending on the degrees of freedom of the dual system and the initial conditions.  
-
-\begin{figure}[H]
-\centering
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=6cm]{images/2soliton6_3.png}
-  \caption{}
-  \label{2soliton63}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=6cm]{images/2soliton6_4.png}
-  \caption{}
-  \label{2soliton64}
-\end{subfigure}
-\caption{Worldlines for the real $\textnormal{I}^+$ system for $N = 6$ particles, with $\omega = g = 1$ with initial values $z_1(0) = 0.1 + 0.5i, z_2(0) = 0.1 -0.9i$ for \ref{2soliton63} and $z_1(0) = 0.1 + 0.5i, z_2(0) = 0.1 - 0.1i$ for \ref{2soliton64}.}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width = 10cm]{images/2soliton_10.png}
-    \caption{Worldline for the real $\textnormal{I}^+$ system for $N = 10$ particles, with $\omega = g = 1$ with initial values $z_1(0) = 0.1 + 0.5i, z_2(0) = 0.1 - i$.}
-    \label{figsoliton10}
-\end{figure}
 \end{frame}
 
 \end{document}
