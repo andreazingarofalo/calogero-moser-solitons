@@ -1,0 +1,128 @@
+\documentclass[12pt,twoside]{report}
+\setlength\parindent{0pt}
+\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm,bindingoffset=6mm]{geometry}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{ebgaramond}
+
+%Maths Tools
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\usepackage{bbold}
+\usepackage[overload]{empheq}
+
+\usepackage{hyperref}
+\usepackage{lipsum} % Lorem Ipsum
+\usepackage{verbatim} % Comments
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{setspace}
+\usepackage{csquotes}
+
+\usepackage{booktabs, multirow} % for borders and merged ranges
+\usepackage{soul}% for underlines
+\usepackage[table]{xcolor} % for cell colors
+\usepackage{changepage,threeparttable} % for wide tables
+
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\graphicspath{ {images/} }
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headheight}{14.5pt}
+\fancyhead{}
+\fancyhead[RO]{\bfseries \nouppercase \rightmark}
+\fancyhead[LE]{\bfseries \nouppercase \leftmark}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\usepackage{afterpage}
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+
+% Customized environments
+\newtheorem{defi}{Definition}
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{cor}{Corollary}
+\newtheorem{obs}{Observation}
+\newtheorem{lemma}{Lemma}
+\newtheorem{example}{Example}
+
+\newcommand{\diag}{\mathop{\mathrm{diag}}}
+\DeclareMathOperator{\sech}{sech}
+
+\newenvironment{abstractpage}
+  {\cleardoublepage\vspace*{\fill}\thispagestyle{empty}}
+  {\vfill\cleardoublepage}
+\renewenvironment{abstract}[1]
+  {\bigskip\selectlanguage{#1}%
+   \begin{center}\bfseries\abstractname\end{center}}
+  {\par\bigskip}
+
+\title{\textbf{Soliton solutions to classical Calogero-Moser systems}}
+\author{}
+\date{}
+
+\makeatletter
+\let\inserttitle\@title
+\makeatother
+
+\pagenumbering{roman}
+
+\begin{document}
+
+\input{titlepage}
+
+\clearpage\pagestyle{empty}\null\newpage
+
+\setcounter{page}{1}
+\input{abstract.tex}
+
+\setcounter{page}{3}
+
+\tableofcontents
+
+%\afterpage{\blankpage}
+
+\addcontentsline{toc}{chapter}{Introduction}
+
+\chapter*{Introduction}
+\setcounter{page}{5}
+\input{introduction}
+
+\chapter{Background: Hamiltonian mechanics}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\pagestyle{fancy}
+\input{chapters/chapter01}
+
+\chapter{Calogero-Moser systems}
+\input{chapters/chapter02}
+
+\chapter{Soliton solutions to Calogero-Moser systems}
+\input{chapters/chapter03}
+
+%\appendix
+%\chapter{Appendix}
+%\input{chapters/appendix}
+
+\renewcommand{\bibname}{References}
+\addcontentsline{toc}{chapter}{References}
+
+\nocite{*}
+\bibliographystyle{ieeetr}
+\bibliography{references}
+
+\end{document}

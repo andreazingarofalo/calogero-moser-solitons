@@ -1,0 +1,488 @@
+In this chapter we will present the classical Calogero-Moser systems under consideration and some of their properties. We will show how they can be arrived at by means of the Kazhdan-Kostant-Sternberg (KKS) construction and how solutions can be obtained through the Olshanetsky Perelomov (OP) projection method. Lastly, we will report their Lax representations and their Bäcklund transformations, from which we will derive soliton equations in Chapter \textsection 3.
+
+
+\section{Calogero-Moser (CM) systems}
+
+\begin{defi}
+Let $(q, p) = (q_1, ..., q_N, p_1, ..., p_N)$ a set of canonical coordinates. A dynamical system is said to be a $A_{N-1}$ Calogero-Moser \textnormal{(CM)} system with some external potential $W(x)$ if it is characterized by the Hamiltonian
+
+\begin{equation}
+\mathcal{H}_{CM} = \frac{1}{2} \sum_{i=1}^N (p_i^2 + W(q_i)) + g^2 \sum_{i,j = 1,\;i \neq j}^N V(q_i - q_j)\;,
+\end{equation}
+
+(masses are supposed to be unitary) with $g^2$ coupling constant and the interparticle potential $V (x)$ in the classified set of meromorphic functions:
+
+$$V(x) = \left \{ \begin{array}{ccc}
+{1}/{x^2} & \textnormal{(rational)} & \textnormal{(I)}\\
+{a^2}/{\sin^2{ax}} & \textnormal{(trigonometric)} & \textnormal{(II)}\\
+{a^2}/{\sinh^2{ax}} & \textnormal{(hyperbolic)} & \textnormal{(III)}\\
+\wp (x) & \textnormal{(elliptic)} & \textnormal{(IV)}
+\end{array}
+\right.$$
+
+where $\wp (x)$ is the \textit{elliptic and double periodic Weierstrass function}
+
+\begin{equation}
+    \wp (z, \omega_1, \omega_2) = \frac{1}{z^2} + \sum_{m, n \neq (0,0)} \Big (  \frac{1}{(z - 2m\omega_1 - 2n\omega_2)^2} - \frac{1}{(2m\omega_1 + 2n\omega_2)^2}\Big )
+\end{equation}
+
+with periods $2\omega_1$ and $2\omega_2$.
+\end{defi}
+
+Such functional forms of the potential, must satisfy conditions that ultimately depend on the form of the Lax pair proposed by F. Calogero (see §\ref{laxcouples}). Without great detail, the necessary equivalence between equations of motion and Lax evolution equations implies strong constraints on Calogero's representation, which result in conditions on the potential $V(x)$. Ultimately, compatible with the representation of Lax provided by Calogero are all the potential functions that are solutions of the differential equation
+
+\begin{equation}
+    a V''(x) V(x) -  b[V'(x)]^2 + c[V(x)]^2 = 0\;,
+\end{equation}
+
+with the appropriate constants $a, b, c$, which is satisfied by the Weiestrass elliptic function $\wp(x)$ (see \cite{calogero2003classical} for a detailed derivation). In fact, the type I-III systems can be viewed as limiting cases of the type IV system \cite{ruijsenaars1999systems}:
+
+\begin{equation}
+    \wp(x) = \left \{ \begin{array}{ccc}
+    {1}/{x^2} & \omega_1 = \infty & \omega_2 = \infty\\
+    {a^2}/{\sin^2{ax}} - {a^2}/{3} & \omega_1 = {\pi} / {2a} & \omega_2 = i\infty\\
+    {a^2}/{\sinh^2{ax}} + {a^2}/{3} & \omega_1 = \infty\ & \omega_2 = {i\pi}/{2a}
+\end{array}
+\right.
+\end{equation}
+
+More generally, the potential $V(x)$ is constructed from root systems of the Lie Algebras as reported in \cite{perelomov1989}. \\
+Solving the Hamilton's equations, we recover the equation of motion for the $i^{\textnormal{th}}$ particle:
+
+\begin{equation}
+    \ddot q_i = - \frac{\partial W}{\partial q_i} - g^2 \sum_{i,j = 1,\;i \neq j}^N \frac{\partial}{\partial q_i} V(q_i - q_j)\;.
+\end{equation}
+
+The first paper introducing and solving in a quantum context the 1-dimensional CM system with arbitrary $N$ is \cite{calogero71}. The analogous model on the circle was treated independently by Bill Sutherland in \cite{sutherland}. C. Marchioro studied the classical analogue for the 1-dimensional on the line \cite{marchioro1970, marchioro1974}. In 1975 J. Moser proved that the classical CM system is integrable for arbitrary $N$ (\cite{moser1975}). \\
+In this work, we will deal with the classical CM systems I, II and III. We will also consider the rational Calogero-Moser system with external harmonic potential, denoted with $\textnormal{I}^+$.
+
+\section{KKS construction of CM systems}
+Given a dynamical system with a Hamiltonian $\mathcal{H}:\mathcal{T}^\ast \mathcal{M} \to \mathbb{R}$ invariant under a continuous 1-parametric symmetry group, Noether’s theorem \cite{noether1918} gives rise to integrals of motion corresponding to this symmetry. The procedure of \textit{Hamiltonian reduction} consists in eliminating some degrees of freedom by setting these integrals to constant values. By this way we are able to obtain a new submanifold, $\mathcal{T}^\ast \mathcal{M}_{red}$ of lower dimension than the initial one, usually simplifying the problem\footnote{For a more formal treatment, see V. Arnold, E. Khukhro, V. Kozlov, and A. Neishtadt, \textit{Mathematical Aspects of Classical and Celestial Mechanics}. Encyclopaedia of Mathematical Sciences, Springer Berlin Heidelberg, 2007, in particular sect. 3.2.2, p.116-120.}.
+In this case, the reduced Hamiltonian tipically is more complicated than the original one, suggesting in reverse to construct a system with more degrees of freedom where the hidden symmetries are apparent. \\
+In the Kazhdan-Kostant-Sternberg (KKS) construction of CM systems \cite{KKS1978}, CM systems emerge from Hamiltonians on the larger configuration space $X^0_N = \{X\}$ of $N \times N$ Hermitian matrices $X$. We set the phase manifold as the cotangent bundle $\mathcal{T}^\ast X^0_N$, mapped by canonical pairs of $N \times N$ matrices $(X,Y)$. The new system is chosen to be dynamically simple, so that its equation of motion can be solved in closed form \cite{perelomov1989}. \\
+If $U$ is an invertible $N \times N$ matrix, then the Hamiltonians are invariant with respect to similarity transformations
+
+\begin{equation}
+    (X, Y) \mapsto (UXU^{-1}, UYU^{-1})\;.
+\end{equation}
+
+Let us introduce the following $N \times N$ Hermitian matrices:
+
+\begin{equation}
+\begin{cases}
+Q_{nm} = \delta_{nm} q_n(t) \\
+L_{nm} = \delta_{nm}p_n(t) + (1 - \delta_{nm}) \frac{ig}{q_n - q_m}\;.
+\end{cases}
+\end{equation}
+
+Such matrices are made to correspond to generic Hermitian matrices $X, Y \in X_N^0$ (see \cite{olshanetskyperelomov} for details) by a similarity transformation that leaves the Hamiltonian of the system invariant:
+
+\begin{equation}
+    X = UQU^{-1}\;\;\;\;,\;\;\;\;Y = ULU^{-1}\;.
+\end{equation}
+
+We report below the construction declined in the cases under analysis.
+
+\subsection{Rational CM (rCM) system}
+The KKS construction of the rational CM system leads to the Hamiltonian
+
+\begin{equation}
+    \mathcal{H}_{rCM} = \frac{1}{2}tr(Y^2), \;\;\;\;\;\;(X,Y) \in \mathcal{T}^\ast X^0_N
+\end{equation}
+
+describing free motion on $X^0_N$. Applying the similarity transformation we get
+
+\begin{equation}
+    \mathcal{H}_{rCM} = \frac{1}{2}tr(Y^2) = \frac{1}{2}tr(UU^{-1}Y^2) = \frac{1}{2}tr(U^{-1} Y^2 U) = \frac{1}{2}tr(L^2)\;.
+\end{equation}
+
+It is easy to verify that the projection $X \to Q$, $Y \to L$ reduces the system to the rCM one:
+    
+\begin{equation}
+    \mathcal{H}_{rCM} = \frac{1}{2}tr(L^2) = \frac{1}{2}\sum_{i=1}^N p_i^2 + g^2 \sum_{i,j = 1, \;i \neq j}^N \frac{1}{(q_i - q_j)^2}\;.
+\end{equation}
+
+\subsection{rCM in external harmonic potential (eCM)}
+The KKS construction of the rational CM system leads to the Hamiltonian
+
+\begin{equation}
+    \mathcal{H}_{rCM} = \frac{1}{2}tr(Y^2 + \omega^2 X^2), \;\;\;\;\;\;(X,Y) \in \mathcal{T}^\ast X^0_N
+\end{equation}
+
+Applying the same similarity transformation we get
+
+\begin{equation}
+\begin{split}
+    \mathcal{H}_{eCM} &= \frac{1}{2}tr(Y^2) + \frac{1}{2}\omega^2 tr(X^2) = \\  &= \frac{1}{2}tr(UU^{-1}Y^2) + \frac{1}{2}\omega^2 tr(UU^{-1} X^2) = \\ 
+    & = \frac{1}{2}tr(U^{-1} Y^2 U) + \frac{1}{2}\omega^2 tr(U^{-1} X^2 U)= \frac{1}{2}tr(L^2) + \frac{1}{2}\omega^2 tr(Q^2)\;.
+\end{split}
+\end{equation}
+
+which leads to the 
+    
+\begin{equation}
+    \mathcal{H}_{eCM} = \frac{1}{2}tr(L^2) + \frac{1}{2}\omega^2 tr(Q^2)= \frac{1}{2}\sum_{i=1}^N (p_i^2 + \omega^2 q_i^2) + g^2 \sum_{i,j = 1, \;i \neq j}^N \frac{1}{(q_i - q_j)^2}\;.
+\end{equation}
+
+
+\subsection{Trigonometric CM (tCM) system}
+The trigonometric CM system derives from the Hamiltonian on $\mathcal{T}^\ast X^0_N$
+
+\begin{equation}
+    \mathcal{H} = \frac{1}{2}tr(XY)^2, \;\;\;\;\;\;(X,Y) \in \mathcal{T}^\ast X^0_N\;.
+\end{equation}
+
+By applying the previous map we obtain
+
+\begin{align*}
+\mathcal{H} &= \frac{1}{2}tr(XY)^2=\frac{1}{2}tr(UU^{-1}XUU^{-1}YUU^{-1}XUU^{-1}Y) = \\
+&= \frac{1}{2}tr(U^{-1}YUU^{-1}XUU^{-1}YUU^{-1}XU) = \frac{1}{2}tr(QLQL) = \frac{1}{2}tr((QL)^2)\;.
+\end{align*}
+
+Carrying out the calculations, we recover
+
+\begin{equation}
+\mathcal{H}_{tCM} = \frac{1}{2} \sum_{i=1}^N q_i^2 p_i^2 + g^2 \sum_{i,j=1,\;i \neq j} ^N \frac{q_i q_j}{(q_i - q_j)^2}\;.
+\end{equation}
+
+Then, with the canonical transformation
+
+\begin{equation}
+    \begin{cases}
+    2a i\hat q_i = \ln{q_i} \\
+    \hat p_i = q_ip_i
+    \end{cases}
+\end{equation}
+
+we get
+
+\begin{equation}
+\mathcal{H}_{tCM} = \frac{1}{2} \sum_{i=1}^N \hat p_i^2 + g^2 \sum_{i,j=1,\;i \neq j} ^N \frac{1}{4\sin{a(\hat q_i - \hat q_j)}^2}\;.
+\end{equation}
+
+\subsection{Hyperbolic CM (hCM) system}
+The hyperbolic CM system derives from the Hamiltonian on $\mathcal{T}^\ast X^0_N$
+
+\begin{equation}
+    \mathcal{H} = \frac{1}{2}tr(XY)^2, \;\;\;\;\;\;(X,Y) \in \mathcal{T}^\ast X^0_N\;.
+\end{equation}
+
+By operating in the same way as above, replacing $i\hat q_i \mapsto \hat q_i$ in the canonical transformation, we obtain
+
+\begin{equation}
+    \mathcal{H}_{hCM} = \frac{1}{2} \sum_{i=1}^N \hat p_i^2 + g^2 \sum_{i,j=1,\;i \neq j} ^N \frac{1}{4\sinh{a(\hat q_i - \hat q_j)}^2}\;.
+\end{equation}
+
+\section{The Olshanetsky-Perelomov (OP) projection method}
+As mentioned above, the Hamiltonian quadrature reduction algorithm cannot be applied to these systems. However an alternative method of integration has been developed by M. A. Olshanetsky and A. M. Perelomov in \cite{olshanetskyperelomov}. Their projection method amounts to the integration of the auxiliary Hamiltonian systems, from which the solution to the considered ones can be recovered by projection.
+
+\subsection{Rational CM system}
+From free motion on $X^0_N$, described by the Hamiltonian
+
+\begin{equation}
+    \mathcal{H} = \frac{1}{2}tr\{Y^2\}, \;\;\;\;\;\;(X,Y) \in \mathcal{T}^\ast X^0_N\;.
+\end{equation}
+
+we obtain the equation of motion $\ddot X = 0$, which integrates directly to 
+
+\begin{equation}
+    X = At + B\;\;\;\;,\;\;\;\;A, B \in X^0_N\;.
+\end{equation}
+
+Given a similarity transformation
+
+\begin{equation}
+    X(t) = U(t) Q(t) U^{-1}(t)
+\end{equation}
+
+where $U$ is an invertible $N \times N$ matrix, we differentiate with respect to time, obtaining
+
+\begin{equation}
+    \dot X = A = \dot UQU^{-1} + U \dot Q U^{-1} + UQ \dot U^{-1}\;
+\end{equation}
+
+Since $\dot U^{-1} = - U^{-1} \dot U U^{-1}$,
+
+\begin{equation}
+    \dot X = \dot UQU^{-1} + U \dot Q U^{-1} -UQU^{-1}\dot U U^{-1}\;.
+\end{equation}
+
+Then, with some algebraic manipulations, 
+
+$$\dot X = UU^{-1}\dot UQU^{-1} + U \dot Q U^{-1} -UQU^{-1}\dot U U^{-1} = 
+    U(U^{-1} \dot U Q + \dot Q - QU^{-1} \dot U )U^{-1}\;.$$
+
+Let $M = U^{-1}\dot U$, then
+
+\begin{equation}
+    \dot X = U(MQ + \dot Q - QM)U^{-1} = U(\dot Q - [Q, M])U^{-1} = A\;.
+\end{equation}
+
+Now, let $L = \dot Q - [Q,M]$, the previous expression becomes
+
+\begin{equation}
+    \dot X = ULU^{-1} = A.
+\end{equation}
+
+Differentiating again with respect to time, we get
+
+\begin{equation*}
+\begin{split}
+\ddot X = 0 &= \dot ULU^{-1} + U\dot L U^{-1} + UL\dot U^{-1} =\\
+ &= UU^{-1}\dot ULU^{-1} + U\dot L U^{-1} - ULU^{-1}\dot U U^{-1} =\\
+&= U(ML + \dot L- LM)U^{-1}\;.
+\end{split}
+\end{equation*}
+
+Hence, 
+
+\begin{equation}
+    \ddot X = U(\dot L - [L,M])U^{-1} = 0\;.
+\end{equation}
+
+We observe that, given an $M$, the matrix $U(t)$ is defined up to initial value by $M = U^{-1}\dot U \iff \dot U = UM$. Setting $U(0) = \mathbb{1}_N$, the previous relations allow us to determine $A$ and $B$:
+
+\begin{equation}
+    \dot X = A = U(t)L(t)U^{-1}(t) = U(0)L(0)U^{-1}(0) = \mathbb{1}_N L(0) \mathbb{1}_N = L(0)\;,
+\end{equation}
+
+\begin{equation}
+    X(0) = B = U(0)Q(0)U^{-1}(0) = \mathbb{1}_N Q(0) \mathbb{1}_N = Q(0)\;.
+\end{equation}
+
+Consequently
+
+\begin{equation}
+    X(t) = At + B = L(0)t + Q(0)\;,
+\end{equation}
+
+completely determining $X$ as
+
+\begin{equation}
+    X_{nm} (t) = \delta_{nm} (p_n(0)t + q_n(0)) + (1 - \delta_{nm}) ig \frac{t}{q_n(0) - q_m(0)}\;,
+\end{equation}
+
+that represents the solution to the equation of motion $\ddot X = 0$ on $X^0_N$. Finally, the time evolution of $Q(t)$ is given by
+
+\begin{equation}
+    Q(t) = U^{-1}(t) X(t) U(t)\;.
+\end{equation}
+
+\subsection{Rational CM system with external harmonic potential}
+From harmonic motion on $X^0_N$, described by the Hamiltonian
+
+\begin{equation}
+    \mathcal{H} = \frac{1}{2}tr(Y^2 + \omega^2 X^2), \;\;\;\;\;\;(X,Y) \in \mathcal{T}^\ast X^0_N\;.
+\end{equation}
+
+we obtain the equation of motion $\ddot X + \omega^2 X= 0$, which integrates directly to 
+
+\begin{equation}
+    X = \frac{A}{\omega}\sin{\omega t} + B\cos{\omega t}\;\;\;\;,\;\;\;\;A, B \in X^0_N\;.
+\end{equation}
+
+Given the same similarity transformation as above, setting $U(0) = \mathbb{1}_N$ implies $B = X(0) = Q(0)$ and $A = \dot X(0) = L(0)$. Then, we can completely determine $X$ as
+
+\begin{equation}
+    X_{nm} (t) = \delta_{nm} (p_n(0)\frac{\sin{\omega t}}{\omega} + q_n(0)\cos{\omega t}) + (1 - \delta_{nm}) ig \frac{\sin{\omega t}}{\omega(q_n(0) - q_m(0))}\;.
+\end{equation}
+
+The time evolution of $Q(t)$ is given as already said by
+
+\begin{equation}
+    Q(t) = U^{-1}(t) X(t) U(t)\;.
+\end{equation}
+
+\subsection{Trigonometric CM system}
+Consider now hyperbolic motion on $X^0_N$, described by the Hamiltonian
+
+\begin{equation}
+    \mathcal{H} = \frac{1}{2}tr\{(XY)^2\}, \;\;\;\;\;\;(X,Y) \in \mathcal{T}^\ast X^0_N\;.
+\end{equation}
+
+By applying the canonical transformations 
+
+\begin{equation}
+    \begin{cases}
+    2a i\hat X = \ln{X} \\
+    \hat Y = XY\;,
+    \end{cases}
+\end{equation}
+
+the Hamiltonian becomes
+
+\begin{equation}
+    \mathcal{H} = \frac{1}{2}tr({\hat Y}^2)\;.
+\end{equation}
+
+This problem has already been solved previously in the rational case. Then, in the new variables $\hat X(t)$ and $\hat Y(t)$:
+
+\begin{equation}
+    \hat X(t) = L(0)t + Q(0)\;,
+\end{equation}
+
+that we can write in the original ones as
+
+\begin{equation}
+    X(t) = \exp{(iaL(0)t)}\exp{(2aQ(0))}\exp{(iaL(0)t)}\;.
+\end{equation}
+
+\subsection{Hyperbolic CM system}
+The hyperbolic case in obtained directly from the trigonometric, in appropriate removal of the $i$. Hence,
+
+\begin{equation}
+    X(t) = \exp{(aL(0)t)}\exp{(2iaQ(0))}\exp{(aL(0)t)}\;.
+\end{equation}
+
+\section{Lax representations of CM Systems}\label{laxcouples}
+Lax representations for CM systems were originally derived from an ansatz by Calogero \cite{calogero2003classical}. It turns out that a convenient representation for the systems in analysis is the following:
+
+\begin{subequations}
+\begin{align}[left=\empheqlbrace]
+L_{nm} &= \delta_{nm} p_n + (1 - \delta_{nm}) \alpha (q_n - q_m) \\
+M_{nm} &= \delta_{nm} \sum_{l \neq n}^N \beta(q_n - q_l) + (1-\delta_{nm}) \gamma (q_n - q_m)\;.
+\end{align}
+\end{subequations}
+
+where $\alpha(q), \beta(q), \gamma(q)$ are are functions to be determined. Inserting this ansatz in the Lax evolution equation $\dot L = [L,M]$, and making some simple mathematical assumptions,
+
+\begin{itemize}
+    \item $p_n = \dot q_n$,
+    \item $\gamma (q) = \alpha'(q)$,
+    \item $V(q) = \alpha (q) \alpha (-q)$
+\end{itemize}
+
+allow us to derive a dynamical system described by the Lax pair with canonical Poisson brackets $\{q_i, p_j\} = \delta_{ij}$ and Hamiltonian
+
+\begin{equation*}
+    \mathcal{H} = \frac{1}{2}\sum_{i = 1}^N p_i^2 + \sum_{i,j=1,\;i\neq j}^N V(q_i - q_j)\;,
+\end{equation*}
+
+where $V(q)$ is the interaction potential. Finally, assuming
+
+\begin{itemize}
+    \item $\beta(q) = \beta(-q)$,
+    \item $\alpha(q_n - q_m)[\beta(q_m - q_l) - \beta(q_n - q_l)] + \alpha(q_n - q_l)\gamma(q_l - q_m) - \alpha(q_l - q_m)\gamma(q_n - q_l) = 0$,
+    \item $x = q_n - q_l$ and $y = q_l - q_m$,
+\end{itemize}
+
+we get the functional equation
+
+\begin{equation}\label{laxfunctionalequations}
+    \frac{\alpha(x) \alpha'(y) - \alpha(y) \alpha'(x)}{\alpha(x+y)} = \beta(x) - \beta(y),  
+\end{equation}
+
+Particular solutions to the equation are
+
+\begin{equation}
+    \alpha(x) = \frac{ig}{x}\;\;\;\;,\;\;\;\;\beta(x) = \frac{ig}{x^2}\;,
+\end{equation}
+
+that give rise to the rational Calogero-Moser system, or 
+
+\begin{equation}
+    \alpha(x) = \frac{iga}{\sin{(ax)}}\;\;\;\;,\;\;\;\;\beta(x) = \frac{iga^2}{\sin^2{(ax)}}\;,
+\end{equation}
+
+\begin{equation}
+    \alpha(x) = \frac{iga}{\sinh{(ax)}}\;\;\;\;,\;\;\;\;\beta(x) = \frac{iga^2}{\sinh^2{(ax)}}\;,
+\end{equation}
+
+which correspond respectively to the trigonometric and hyperbolic CM systems. We report for all the three systems considered their Lax representation below.
+
+\subsection{Rational CM system}
+The isolated CM system with $V(x) = \frac{1}{x^2}$ can be represented as
+
+\begin{subequations}
+\begin{align}[left=\empheqlbrace]
+L_{nm} &= \delta_{nm} p_n + (1 - \delta_{nm}) \frac{ig}{q_n - q_m} \\
+M_{nm} &= \delta_{nm} \sum_{l \neq n}^N \frac{ig}{(q_n - q_l)^2} - (1-\delta_{nm}) \frac{ig}{(q_n - q_m)^2}\;.
+\end{align}
+\end{subequations}
+
+\begin{obs}
+    Note that for the rational case with external harmonic potential, the $L$ and $M$ are not proper a Lax pair for the reduced system, satisfying
+    
+    \begin{equation}
+        \dot L - [L,M] = - \omega^2 X \;.
+    \end{equation}
+\end{obs}
+
+\subsection{Trigonometric CM system}
+Analogously the isolated CM system with $V(x) = {a^2}/{\sin^2{ax}}$ can be represented as
+
+\begin{subequations}
+\begin{align}[left=\empheqlbrace]
+L_{nm} &= \delta_{nm} p_n + (1 - \delta_{nm}) iga\frac{1}{\sin{a(q_n - q_m)}} \\
+M_{nm} &= \delta_{nm} \sum_{l \neq n}^N \frac{iga^2}{\sin{a(q_n - q_l)}^2} - (1-\delta_{nm}) \frac{iga^2}{\sin^2{a(q_n - q_m)}} \cos{a(q_n - q_m)}\;.
+\end{align}
+\end{subequations}
+
+\subsection{Hyperbolic CM system}
+Finally the isolated CM system with $V(x) = {a^2}/{\sinh^2{ax}}$ can be represented as
+
+\begin{subequations}
+\begin{align}[left=\empheqlbrace]
+L_{nm} &= \delta_{nm} p_n + (1 - \delta_{nm}) iga\frac{1}{\sinh{a(q_n - q_m)}} \\
+M_{nm} &= \delta_{nm} \sum_{l \neq n}^N \frac{iga^2}{\sinh^2{a(q_n - q_l)}} - (1-\delta_{nm}) \frac{iga^2}{\sinh^2{a(q_n - q_m)}^2} \cosh{a(q_n - q_m)}\;.
+\end{align}
+\end{subequations}
+
+\section{Bäcklund transformations of CM systems}
+Finally, let us introduce Bäcklund Transformations (BTs) of Calogero-Moser systems. \\
+Bäcklund transformations of the CM system were proposed for the first time by Wojciechowski in \cite{wojciechowski1982}. More recently M. Kulkarni and A. Polychronakos in \cite{kulkarni2017} propose a general first-order formulation of the Calogero model in external potentials in terms of a generating function, which simplifies the derivation of its Bäcklund transformations. In this work, we will present BTs in a single form for systems I, II, III and $\textnormal{I}^+$ (see \cite{philip2019soliton} for the proof).
+
+\begin{thm}
+Consider $N$ complex canonical coordinates $x_j = q_j, \dot x_j = p_j \in \mathbb{C}$ and $M$ canonical coordinates $z_n, \dot z_n \in \mathbb{C}$. Then, Bäcklund Transformations for CM systems of type $\textnormal{I,II,III}$ and $\textnormal{I}^+$ take the form
+
+\begin{subequations}
+\begin{align}[left=\empheqlbrace]
+\dot x_j &= - \sum_{k=1,\;k \neq j}^N \alpha(x_j - x_k) + \sum_{n = 1}^M \alpha(x_j - z_n) + \lambda + i\omega x_j\;,\\
+\dot z_n &= \sum_{m=1,\;m \neq n}^N \alpha(z_n - z_m) - \sum_{l = 1}^M \alpha(z_n - x_l) + \lambda + i\omega x_j\;,
+\end{align}
+\end{subequations}
+
+with $\alpha(x)$ the \textit{Special Lax function}, with the property $V(x) = - \alpha^2(x)$, $\lambda$ constant and $\omega = 0$ for all but class $\textnormal{I}^+$.
+\end{thm}
+
+The transformations declined in the cases under analysis are explicitly listed below.
+
+\subsection{Rational CM system}
+Bäcklund transformations of the isolated CM system with $V(x) = {1}/{x^2}$ assume the form
+
+\begin{subequations}
+\begin{align}[left=\empheqlbrace]
+\dot x_j &= -ig \sum_{k=1,\;k \neq j}^N \frac{1}{x_j - x_k} + ig\sum_{n = 1}^M \frac{1}{x_j - z_n}\;,\\
+\dot z_n &= ig \sum_{m=1,\;m \neq n}^N \frac{1}{z_n - z_m} - ig\sum_{l = 1}^M \frac{1}{z_n - x_l}\;.
+\end{align}
+\end{subequations}
+
+\subsection{Rational CM system with external harmonic potential}
+Bäcklund transformations of the  CM system with $V(x) = {1}/{x^2}$ and external potential $W(x) = \frac{1}{2}\omega^2 x^2$ assume the form
+
+\begin{subequations}
+\begin{align}[left=\empheqlbrace]
+\dot x_j &= -ig \sum_{k=1,\;k \neq j}^N \frac{1}{x_j - x_k} + ig\sum_{n = 1}^M \frac{1}{x_j - z_n} + i\omega x_j\\
+\dot z_n &= ig \sum_{m=1,\;m \neq n}^N \frac{1}{z_n - z_m} - ig\sum_{l = 1}^M \frac{1}{z_n - x_l} + i\omega z_n.
+\end{align}
+\end{subequations}
+
+\subsection{Trigonometric CM system}
+Analogously the Bäcklund transformations of the isolated CM system with $V(x) = {a^2}/{\sin^2{(ax)}}$ are given by
+
+\begin{subequations}
+\begin{align}[left=\empheqlbrace]
+\dot x_j &= -iga \sum_{k=1,\;k \neq j}^N \frac{1}{\sin{a(x_j - x_k)}} + iga\sum_{n = 1}^M \frac{1}{\sin{a(x_j - z_n)}}\;, \\
+\dot z_n &= iga \sum_{m=1,\;m \neq n}^N \frac{1}{\sin{a(z_n - z_m)}} - iga\sum_{l = 1}^M \frac{1}{\sin{a(z_n - x_l)}}\;.
+\end{align}
+\end{subequations}
+
+\subsection{Hyperbolic CM system}
+Lastly the Bäcklund transformations of the isolated CM system with $V(x) = {a^2}/{\sinh^2{(ax)}}$ are
+
+\begin{subequations}
+\begin{align}[left=\empheqlbrace]
+\dot x_j &= -iga \sum_{k=1,\;k \neq j}^N \frac{1}{\sinh{a(x_j - x_k)}} + iga\sum_{n = 1}^M \frac{1}{\sinh{a(x_j - z_n)}}\;, \\
+\dot z_n &= iga \sum_{m=1,\;m \neq n}^N \frac{1}{\sinh{a(z_n - z_m)}} - iga\sum_{l = 1}^M \frac{1}{\sinh{a(z_n - x_l)}}\;.
+\end{align}
+\end{subequations}
