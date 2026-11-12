@@ -1,3 +1,3 @@
 # Soliton solutions to classical Calogero-Moser systems
 
-My second-year dissertation at the Scuola Superiore ISUFI (Università del Salento, 2022), supervised by L. Martina, together with the slides and the Mathematica notebooks used for the plots. I wrote it to learn how Bäcklund transformations lead to soliton solutions of Calogero-Moser systems: it follows the literature and reproduces its numerical results.
+Second-year dissertation at the Scuola Superiore ISUFI (Università del Salento, 2022), supervised by L. Martina. It reviews how Bäcklund transformations yield M-soliton solutions of the rational, trigonometric and hyperbolic Calogero-Moser systems, and reproduces numerically the soliton solutions of the rational model in an external harmonic potential. The repository contains the LaTeX source, the slides and the Mathematica notebooks used for the figures.
